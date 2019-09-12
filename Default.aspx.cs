@@ -11,4 +11,9 @@ public partial class _Default : Page
     {
 
     }
+
+    protected void TextBox1_TextChanged(object sender, EventArgs e)
+    {
+
+    }
 }
