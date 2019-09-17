@@ -27,3 +27,19 @@ textarea {
         padding: 0;
     }
 }
+
+.item img 
+{
+    width: 100%;
+}
+
+#home-carousel
+{
+    width:60%;
+    margin:auto;
+}
+
+.carousel-control:focus
+{
+    outline: none;
+}
