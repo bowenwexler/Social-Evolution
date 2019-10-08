@@ -3,7 +3,9 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <!-- Include jquery-ui script file. -->
-    <script src="packages/jQuery.UI.Combined.1.9.2/Content/Scripts/jquery-ui-1.9.2.min" type="text/javascript"></script>
+    <script src="Scripts/jquery-ui-1.12.1.js" type="text/javascript"></script>
+
+    <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
 
     <!-- Include one of jTable styles. -->
     <link href="packages/jTable.2.4.0/content/Scripts/jtable/themes/lightcolor/blue/jtable.css" rel="stylesheet" type="text/css" />
@@ -67,7 +69,7 @@
             });
  
             //Load student list from server
-            $('#AnimalTestContainer').jtable('load');
+            //$('#AnimalTestContainer').jtable('load');
         });
     </script>
 </asp:Content>
