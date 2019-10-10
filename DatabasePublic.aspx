@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Public Database" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="DatabasePublic.aspx.cs" Inherits="DatabasePublic" %>
+﻿<%@ Page Title="Public Database" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="DatabasePublic.aspx.cs" CodeBehind="~/DatabasePublic.aspx.cs" Inherits="DatabasePublic" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -20,7 +20,10 @@
     <script type="text/javascript" src="packages/jTable.2.4.0/content/Scripts/jtable/extensions/jquery.jtable.aspnetpagemethods.js"></script>
 
     <h2 class="text-center">Public Database</h2>
-    <div id="AnimalTestContainer"></div>
+<%--    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:DefaultConnection %>" SelectCommand="SELECT * FROM [Animal]"></asp:SqlDataSource>--%>
+    <div id="AnimalTestContainer">
+        
+    </div>
     <script type="text/javascript">
  
         $(document).ready(function () {
@@ -28,15 +31,11 @@
             //Prepare jtable plugin
             $('#AnimalTestContainer').jtable({
                 title: 'Testing JTable',
-                paging: true, //Enables paging
-                pageSize: 10, //Actually this is not needed since default value is 10.
-                sorting: true, //Enables sorting
-                defaultSorting: 'Name ASC', //Optional. Default sorting on first load.
                 actions: {
-                    listAction: '/DatabasePublic.aspx/StudentList',
-                    createAction: '/DatabasePublic.aspx/CreateStudent',
-                    updateAction: '/DatabasePublic.aspx/UpdateStudent',
-                    deleteAction: '/DatabasePublic.aspx/DeleteStudent'
+                    listAction: '/DatabasePublic.aspx/AnimalList',
+                    createAction: '/PagingAndSorting.aspx/CreateStudent',
+                    updateAction: '/PagingAndSorting.aspx/UpdateStudent',
+                    deleteAction: '/PagingAndSorting.aspx/DeleteStudent'
                 },
                 fields: {
                     Animal_Id: {
@@ -68,8 +67,8 @@
                 }
             });
  
-            //Load student list from server
-            //$('#AnimalTestContainer').jtable('load');
+            //Load animal list from server
+            $('#AnimalTestContainer').jtable('load');
         });
     </script>
 </asp:Content>
