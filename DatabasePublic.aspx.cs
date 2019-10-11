@@ -13,11 +13,12 @@ using DataMethods;
 using static DataClasses.DataClasses;
 using static DataMethods.DataMethods;
 
+
 public partial class DatabasePublic : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+
     }
 
     [WebMethod(EnableSession = true)]
@@ -28,6 +29,7 @@ public partial class DatabasePublic : System.Web.UI.Page
             string testSelect = "SELECT * FROM Animal";
             List<Animal> animals = new List<Animal>();
             animals = ExcuteObject<Animal>(testSelect, false).ToList();
+            Console.Write(animals.ToString());
             return new { Result = "OK", Records = animals };
         }
         catch (Exception ex)
@@ -63,7 +65,7 @@ public partial class DatabasePublic : System.Web.UI.Page
     public static DataTable Select(string storedProcedureorCommandText, bool isStoredProcedure = true)
     {
         DataTable dataTable = new DataTable();
-        using (SqlConnection connection = new SqlConnection("ConnectionString"))
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
         {
             using (SqlCommand command = new SqlCommand())
             {
