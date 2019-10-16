@@ -1,6 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Home.aspx.cs" Inherits="BRDR_DB" %>
-<asp:GridView ID="GridView1" runat="server"></asp:GridView>
-<asp:SqlDataSource ID="SqlDataSource1" runat="server"></asp:SqlDataSource>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
 
