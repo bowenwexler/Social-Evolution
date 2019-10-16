@@ -30,6 +30,11 @@ namespace DataClasses
                 this.Population = row["population"].ToString();
                 this.Continent = row["continent"].ToString();
             }
+
+            public Animal()
+            {
+                
+            }
         }
     }
 }

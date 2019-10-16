@@ -29,34 +29,35 @@
             $('#AnimalTestContainer').jtable({
                 title: 'Testing JTable',
                 actions: {
-                    listAction: 'DatabasePublic.aspx/AnimalList'
+                    listAction: 'DatabasePublic.aspx/AnimalList',
+                    createAction: 'DatabasePublic.aspx/CreateAnimal',
+                    updateAction: 'DatabasePublic.aspx/EditAnimal',
+                    deleteAction: 'DatabasePublic.aspx/DeleteAnimal'
                 },
                 fields: {
                     Animal_Id: {
                         key: true,
-                        create: false,
-                        edit: false,
-                        width: '5%'
+                        list: false
                     },
                     Genus_Species: {
                         title: 'Genus_Species',
-                        width: '15%'
+                        width: '25%'
                     },
                     Common_Name: {
                         title: 'Common_Name',
-                        width: '15%'
+                        width: '25%'
                     },
                     Subspecies: {
                         title: 'Subspecies',
-                        width: '15%'
+                        width: '20%'
                     },
                     Population: {
                         title: 'Population',
-                        width: '40%',
+                        width: '10%',
                     },
                     Continent: {
                         title: 'Continent',
-                        width: '10%'
+                        width: '20%'
                     }
                 }
             });

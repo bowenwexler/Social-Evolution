@@ -26,10 +26,9 @@ public partial class DatabasePublic : System.Web.UI.Page
     {
         try
         {
-            string testSelect = "SELECT * FROM Animal";
+            string select = "SELECT * FROM Animal";
             List<Animal> animals = new List<Animal>();
-            animals = ExcuteObject<Animal>(testSelect, false).ToList();
-            Console.Write(animals.ToString());
+            animals = ExcuteObject<Animal>(select).ToList();
             return new { Result = "OK", Records = animals };
         }
         catch (Exception ex)
@@ -38,22 +37,52 @@ public partial class DatabasePublic : System.Web.UI.Page
         }
     }
 
-    //public IEnumerable<T> ExcuteObject<T>(string command)
-    //{
-    //    List<T> items = new List<T>();
-    //    var dataTable = Select(command); //this will use the DataTable Select function
-    //    foreach (var row in dataTable.Rows)
-    //    {
-    //        T item = (T)Activator.CreateInstance(typeof(T), row);
-    //        items.Add(item);
-    //    }
-    //    return items;
-    //}
+    [WebMethod(EnableSession = true)]
+    public static object CreateAnimal(Animal record)
+    {
+        try
+        {
+            string insert, values, columns;
+            values = "";
+            columns = "";
+            if (record.Genus_Species != "") { values += "'" + record.Genus_Species + "' "; columns += "genus_species "; }
+            if (record.Common_Name != "") { values += ",'" + record.Common_Name + "' "; columns += ",common_name "; }
+            if (record.Subspecies != "") { values += ",'" + record.Subspecies + "' "; columns += ",subspecies "; }
+            if (record.Population != "") { values += "," + record.Population; columns += ",population "; }
+            if (record.Continent != "") { values += ",'" + record.Continent + "' "; columns += ",continent "; }
+            insert = "Insert into Animal(" + columns + ") values(" + values + ")";
+            Insert(insert);
+            DataTable animalTable = new DataTable();
 
-    public static IEnumerable<T> ExcuteObject<T>(string storedProcedureorCommandText, bool isStoredProcedure = true)
+            animalTable.Columns.Add("Id");
+            animalTable.Columns.Add("genus_species");
+            animalTable.Columns.Add("common_name");
+            animalTable.Columns.Add("subspecies");
+            animalTable.Columns.Add("population");
+            animalTable.Columns.Add("continent");
+
+            DataRow animalRow = animalTable.NewRow();
+
+            animalRow["Id"] = record.Animal_Id;
+            animalRow["genus_species"] = record.Genus_Species;
+            animalRow["common_name"] = record.Common_Name;
+            animalRow["subspecies"] = record.Subspecies;
+            animalRow["population"] = record.Population;
+            animalRow["continent"] = record.Continent;
+
+            Animal addedAnimal = new Animal(animalRow);
+            return new { Result = "OK", Record = addedAnimal };
+        }
+        catch (Exception ex)
+        {
+            return new { Result = "ERROR", Message = ex.Message };
+        }
+    }
+
+    public static IEnumerable<T> ExcuteObject<T>(string commandText)
     {
         List<T> items = new List<T>();
-        var dataTable = Select(storedProcedureorCommandText, isStoredProcedure); //this will use the DataTable Select function
+        var dataTable = Select(commandText); //this will use the DataTable Select function
         foreach (var row in dataTable.Rows)
         {
             T item = (T)Activator.CreateInstance(typeof(T), row);
@@ -62,7 +91,7 @@ public partial class DatabasePublic : System.Web.UI.Page
         return items;
     }
 
-    public static DataTable Select(string storedProcedureorCommandText, bool isStoredProcedure = true)
+    public static DataTable Select(string commandText)
     {
         DataTable dataTable = new DataTable();
         using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
@@ -70,32 +99,33 @@ public partial class DatabasePublic : System.Web.UI.Page
             using (SqlCommand command = new SqlCommand())
             {
                 command.Connection = connection;
-                command.CommandType = CommandType.StoredProcedure;
-                if (!isStoredProcedure)
-                {
-                    command.CommandType = CommandType.Text;
-                }
-                command.CommandText = storedProcedureorCommandText;
+                command.CommandType = CommandType.Text;
+                command.CommandText = commandText;
                 connection.Open();
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
                 dataAdapter.Fill(dataTable);
+                connection.Close();
+                command.Dispose();
                 return dataTable;
             }
         }
     }
 
-    //public DataTable Select(string command)
-    //{
-    //    //Assign connection string to sqldatasource
-    //    SqlDataSource1.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-    //    //Assign the selectcommand to sqldatasource
-    //    SqlDataSource1.SelectCommand = command;
-
-    //    DataView dataView = SqlDataSource1.Select(DataSourceSelectArguments.Empty) as DataView;
-    //    DataTable dataTable = new DataTable();
-    //    dataTable = dataView.ToTable();
-
-    //    return dataTable;
-    //}
+    public static void Insert(string commandText)
+    {
+        DataTable dataTable = new DataTable();
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+        {
+            connection.Open();
+            SqlCommand command;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            String sql = commandText;
+            command = new SqlCommand(sql, connection);
+            adapter.InsertCommand = new SqlCommand(sql, connection);
+            adapter.InsertCommand.ExecuteNonQuery();
+            connection.Close();
+            command.Dispose();
+        }
+    }
 
 }
