@@ -116,6 +116,21 @@ public partial class DatabasePublic : System.Web.UI.Page
         }
     }
 
+    [WebMethod(EnableSession = true)]
+    public static object DeleteAnimal(int Animal_Id)
+    {
+        try
+        {
+            string cmd = "DELETE FROM Animal WHERE Id = " + Animal_Id;
+            Delete(cmd, Animal_Id);
+            return new { Result = "OK" };
+        }
+        catch (Exception ex)
+        {
+            return new { Result = "ERROR", Message = ex.Message };
+        }
+    }
+
     public static IEnumerable<T> ExcuteObject<T>(string commandText)
     {
         List<T> items = new List<T>();
@@ -150,7 +165,6 @@ public partial class DatabasePublic : System.Web.UI.Page
 
     public static void InsertEdit(string commandText)
     {
-        DataTable dataTable = new DataTable();
         using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
         {
             connection.Open();
@@ -160,6 +174,22 @@ public partial class DatabasePublic : System.Web.UI.Page
             command = new SqlCommand(sql, connection);
             adapter.InsertCommand = new SqlCommand(sql, connection);
             adapter.InsertCommand.ExecuteNonQuery();
+            connection.Close();
+            command.Dispose();
+        }
+    }
+
+    public static void Delete(string commandText, int Id)
+    {
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+        {
+            connection.Open();
+            SqlCommand command;
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            String sql = commandText;
+            command = new SqlCommand(sql, connection);
+            adapter.DeleteCommand = new SqlCommand(sql, connection);
+            adapter.DeleteCommand.ExecuteNonQuery();
             connection.Close();
             command.Dispose();
         }
