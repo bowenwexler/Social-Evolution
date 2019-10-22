@@ -28,6 +28,10 @@
             //Prepare jtable plugin
             $('#AnimalTestContainer').jtable({
                 title: 'Testing JTable',
+                paging: true, //Enable paging
+                pageSize: 10, //Set page size (default: 10)
+                sorting: true, //Enable sorting
+                defaultSorting: 'Genus_Species ASC', //Set default sorting
                 actions: {
                     listAction: 'DatabasePublic.aspx/AnimalList',
                     createAction: 'DatabasePublic.aspx/CreateAnimal',

@@ -21,11 +21,15 @@ public partial class DatabasePublic : System.Web.UI.Page
     }
 
     [WebMethod(EnableSession = true)]
-    public static object AnimalList()
+    public static object AnimalList(int jtStartIndex, int jtPageSize, string jtSorting)
     {
+        string select = "";
         try
         {
-            string select = "SELECT * FROM Animal";
+            //string select = "SELECT * FROM Animal";
+            select = "SELECT * FROM Animal ORDER BY " + jtSorting + " offset " + jtStartIndex + " rows fetch next " + jtPageSize + " rows only";
+
+
             List<Animal> animals = new List<Animal>();
             animals = ExcuteObject<Animal>(select).ToList();
             return new { Result = "OK", Records = animals };
