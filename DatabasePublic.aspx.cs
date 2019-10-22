@@ -13,7 +13,6 @@ using DataMethods;
 using static DataClasses.DataClasses;
 using static DataMethods.DataMethods;
 
-
 public partial class DatabasePublic : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -43,15 +42,25 @@ public partial class DatabasePublic : System.Web.UI.Page
         try
         {
             string insert, values, columns;
+            Boolean startComma = false;
             values = "";
             columns = "";
-            if (record.Genus_Species != "") { values += "'" + record.Genus_Species + "' "; columns += "genus_species "; }
-            if (record.Common_Name != "") { values += ",'" + record.Common_Name + "' "; columns += ",common_name "; }
-            if (record.Subspecies != "") { values += ",'" + record.Subspecies + "' "; columns += ",subspecies "; }
-            if (record.Population != "") { values += "," + record.Population; columns += ",population "; }
-            if (record.Continent != "") { values += ",'" + record.Continent + "' "; columns += ",continent "; }
+            if (record.Genus_Species != "") { values += "'" + record.Genus_Species + "'"; columns += "genus_species "; startComma = true; }
+
+            if (record.Common_Name != "" && startComma) { values += ", '" + record.Common_Name + "'"; columns += ", common_name"; }
+            else if (record.Common_Name != "" && startComma == false) { values += "'" + record.Common_Name + "'"; columns += "common_name"; }
+
+            if (record.Subspecies != "" && startComma) { values += ", '" + record.Subspecies + "'"; columns += ", subspecies"; }
+            else if (record.Subspecies != "" && startComma == false) { values += "'" + record.Subspecies + "'"; columns += "subspecies"; }
+
+            if (record.Population != "" && startComma) { values += ", " + record.Population; columns += ", population"; }
+            else if (record.Population != "" && startComma == false) { values += record.Population; columns += "common_name"; }
+
+            if (record.Continent != "" && startComma) { values += ", '" + record.Continent + "' "; columns += ", continent"; }
+            else if (record.Continent != "" && startComma == false) { values += "'" + record.Continent + "'"; columns += "continent"; }
+
             insert = "Insert into Animal(" + columns + ") values(" + values + ")";
-            Insert(insert);
+            InsertEdit(insert);
             DataTable animalTable = new DataTable();
 
             animalTable.Columns.Add("Id");
@@ -72,6 +81,34 @@ public partial class DatabasePublic : System.Web.UI.Page
 
             Animal addedAnimal = new Animal(animalRow);
             return new { Result = "OK", Record = addedAnimal };
+        }
+        catch (Exception ex)
+        {
+            return new { Result = "ERROR", Message = ex.Message };
+        }
+    }
+
+    [WebMethod(EnableSession = true)]
+    public static object EditAnimal(Animal record)
+    {
+        try
+        {
+            string values = "";
+            if (record.Genus_Species != "") { values += "genus_species = '" + record.Genus_Species + "', "; }
+            else { values += "genus_species = NULL, "; }
+            if (record.Common_Name != "") { values += "common_name = '" + record.Common_Name + "', "; }
+            else { values += "common_name = NULL, "; }
+            if (record.Subspecies != "") { values += "subspecies = '" + record.Subspecies + "', "; }
+            else { values += "subspecies = NULL, "; }
+            if (record.Population != "") { values += " population = " + record.Population + ", "; }
+            else { values += " population = NULL, "; }
+            if (record.Continent != "") { values += "continent = '" + record.Continent + "' "; }
+            else { values += "continent = NULL "; }
+            string edit;
+            edit = "Update Animal Set " + values + " WHERE Id = " + record.Animal_Id;
+            InsertEdit(edit);
+
+            return new { Result = "OK" };
         }
         catch (Exception ex)
         {
@@ -111,7 +148,7 @@ public partial class DatabasePublic : System.Web.UI.Page
         }
     }
 
-    public static void Insert(string commandText)
+    public static void InsertEdit(string commandText)
     {
         DataTable dataTable = new DataTable();
         using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
@@ -127,5 +164,4 @@ public partial class DatabasePublic : System.Web.UI.Page
             command.Dispose();
         }
     }
-
 }
