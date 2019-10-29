@@ -24,15 +24,16 @@ public partial class DatabasePublic : System.Web.UI.Page
     public static object AnimalList(int jtStartIndex, int jtPageSize, string jtSorting)
     {
         string select = "";
+        string totalcmd = "SELECT COUNT(*) FROM dbo.Animal";
+        int animalCount = 0;
         try
         {
             //string select = "SELECT * FROM Animal";
             select = "SELECT * FROM Animal ORDER BY " + jtSorting + " offset " + jtStartIndex + " rows fetch next " + jtPageSize + " rows only";
-
-
+            animalCount = Total(totalcmd);
             List<Animal> animals = new List<Animal>();
             animals = ExcuteObject<Animal>(select).ToList();
-            return new { Result = "OK", Records = animals };
+            return new { Result = "OK", Records = animals, TotalRecordCount = animalCount };
         }
         catch (Exception ex)
         {
@@ -165,6 +166,22 @@ public partial class DatabasePublic : System.Web.UI.Page
                 return dataTable;
             }
         }
+    }
+
+    public static int Total(string commandText)
+    {
+        string command = commandText;
+        int count = 0;
+
+        using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+        {
+            using (SqlCommand cmdCount = new SqlCommand(command, connection))
+            {
+                connection.Open();
+                count = (int)cmdCount.ExecuteScalar();
+            }
+        }
+        return count;
     }
 
     public static void InsertEdit(string commandText)
