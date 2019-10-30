@@ -428,7 +428,6 @@ div.jtable-main-container > table.jtable > tbody > tr.jtable-child-row > td {
 }
 div.jtable-main-container > div.jtable-bottom-panel {
   background-color: #1c78de;
-  color: #fff;
   min-height: 22.900000000000002px;
   font-size: 13px;
   border: 1px solid #2d89ef;
@@ -447,7 +446,6 @@ div.jtable-main-container > div.jtable-bottom-panel .jtable-page-list .jtable-pa
   background-color: #2d89ef;
   margin: 1px;
   padding: 2px 5px;
-  color: #fff;
 }
 div.jtable-main-container > div.jtable-bottom-panel .jtable-page-list .jtable-page-number:hover,
 div.jtable-main-container > div.jtable-bottom-panel .jtable-page-list .jtable-page-number-first:hover,
@@ -467,14 +465,17 @@ div.jtable-main-container > div.jtable-bottom-panel .jtable-page-list .jtable-pa
 }
 div.jtable-main-container > div.jtable-bottom-panel span.jtable-page-info {
   display: inline-block;
+  color: #fff;
   padding: 4px;
 }
 div.jtable-main-container > div.jtable-bottom-panel span.jtable-page-size-change {
   display: inline-block;
+  color: #fff;
   padding: 2px 0px 2px 0px;
 }
 div.jtable-main-container > div.jtable-bottom-panel span.jtable-goto-page {
   display: inline-block;
+  color: #fff;
   padding: 2px 0px 2px 0px;
 }
 form.jtable-dialog-form {

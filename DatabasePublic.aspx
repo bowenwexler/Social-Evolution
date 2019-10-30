@@ -2,13 +2,15 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-
+<%--    <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />--%>
+    <%--<link href="packages/jQuery.UI.Combined.1.12.1/Content/Content/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />--%>
+    <link href="Content/themes/metroblue/jquery-ui.css" rel="stylesheet" type="text/css" />
     <!-- Include one of jTable styles. -->
     <link href="Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css" />
 
+    <script src="Scripts/jquery-1.9.0.js" type="text/javascript"></script>
     <!-- Include jquery-ui script file. -->
-    <script src="Scripts/jquery-ui-1.12.1.js" type="text/javascript"></script>
+    <script src="Scripts/jquery-ui-1.9.2.min.js" type="text/javascript"></script>
 
     <!-- A helper library for JSON serialization -->
     <script src="Scripts/jtable/external/json2.js"></script>
