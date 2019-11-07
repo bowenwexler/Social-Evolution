@@ -24,12 +24,12 @@ public partial class DatabasePublic : System.Web.UI.Page
     public static object AnimalList(int jtStartIndex, int jtPageSize, string jtSorting)
     {
         string select = "";
-        string totalcmd = "SELECT COUNT(*) FROM dbo.Animal";
+        string totalcmd = "SELECT COUNT(*) FROM master";
         int animalCount = 0;
         try
         {
             //string select = "SELECT * FROM Animal";
-            select = "SELECT * FROM Animal ORDER BY " + jtSorting + " offset " + jtStartIndex + " rows fetch next " + jtPageSize + " rows only";
+            select = "SELECT Id, genus_species, common_name, subspecies, population, continent FROM master ORDER BY " + jtSorting + " offset " + jtStartIndex + " rows fetch next " + jtPageSize + " rows only";
             animalCount = Total(totalcmd);
             List<Animal> animals = new List<Animal>();
             animals = ExcuteObject<Animal>(select).ToList();
@@ -58,13 +58,13 @@ public partial class DatabasePublic : System.Web.UI.Page
             if (record.Subspecies != "" && startComma) { values += ", '" + record.Subspecies + "'"; columns += ", subspecies"; }
             else if (record.Subspecies != "" && startComma == false) { values += "'" + record.Subspecies + "'"; columns += "subspecies"; }
 
-            if (record.Population != "" && startComma) { values += ", " + record.Population; columns += ", population"; }
-            else if (record.Population != "" && startComma == false) { values += record.Population; columns += "common_name"; }
+            if (record.Population != "" && startComma) { values += ", '" + record.Population + "'"; columns += ", population"; }
+            else if (record.Population != "" && startComma == false) { values += "'" + record.Population + "'"; columns += "population"; }
 
             if (record.Continent != "" && startComma) { values += ", '" + record.Continent + "' "; columns += ", continent"; }
             else if (record.Continent != "" && startComma == false) { values += "'" + record.Continent + "'"; columns += "continent"; }
 
-            insert = "Insert into Animal(" + columns + ") values(" + values + ")";
+            insert = "Insert into master(" + columns + ") values(" + values + ")";
             InsertEdit(insert);
             DataTable animalTable = new DataTable();
 
@@ -77,7 +77,7 @@ public partial class DatabasePublic : System.Web.UI.Page
 
             DataRow animalRow = animalTable.NewRow();
 
-            animalRow["Id"] = record.Animal_Id;
+            animalRow["Id"] = record.ID;
             animalRow["genus_species"] = record.Genus_Species;
             animalRow["common_name"] = record.Common_Name;
             animalRow["subspecies"] = record.Subspecies;
@@ -110,7 +110,7 @@ public partial class DatabasePublic : System.Web.UI.Page
             if (record.Continent != "") { values += "continent = '" + record.Continent + "' "; }
             else { values += "continent = NULL "; }
             string edit;
-            edit = "Update Animal Set " + values + " WHERE Id = " + record.Animal_Id;
+            edit = "Update master Set " + values + " WHERE Id = " + record.ID;
             InsertEdit(edit);
 
             return new { Result = "OK" };
@@ -122,12 +122,12 @@ public partial class DatabasePublic : System.Web.UI.Page
     }
 
     [WebMethod(EnableSession = true)]
-    public static object DeleteAnimal(int Animal_Id)
+    public static object DeleteAnimal(int ID)
     {
         try
         {
-            string cmd = "DELETE FROM Animal WHERE Id = " + Animal_Id;
-            Delete(cmd, Animal_Id);
+            string cmd = "DELETE FROM master WHERE Id = " + ID;
+            Delete(cmd, ID);
             return new { Result = "OK" };
         }
         catch (Exception ex)

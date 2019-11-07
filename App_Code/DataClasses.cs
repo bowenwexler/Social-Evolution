@@ -9,7 +9,7 @@ namespace DataClasses
     {
         public class Animal
         {
-            public int Animal_Id { get; set; }
+            public int ID { get; set; }
 
             public string Genus_Species { get; set; }
 
@@ -23,7 +23,7 @@ namespace DataClasses
 
             public Animal(DataRow row)
             {
-                this.Animal_Id = Convert.ToInt32(row["Id"]);
+                this.ID = Convert.ToInt32(row["Id"]);
                 this.Genus_Species = row["genus_species"].ToString();
                 this.Common_Name = row["common_name"].ToString();
                 this.Subspecies = row["subspecies"].ToString();

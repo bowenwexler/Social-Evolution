@@ -41,9 +41,10 @@
                     deleteAction: 'DatabasePublic.aspx/DeleteAnimal'
                 },
                 fields: {
-                    Animal_Id: {
+                    ID: {
                         key: true,
-                        list: false
+                        title: 'ID',
+                        width: '5%'
                     },
                     Genus_Species: {
                         title: 'Genus_Species',
@@ -51,7 +52,7 @@
                     },
                     Common_Name: {
                         title: 'Common_Name',
-                        width: '25%'
+                        width: '20%'
                     },
                     Subspecies: {
                         title: 'Subspecies',
