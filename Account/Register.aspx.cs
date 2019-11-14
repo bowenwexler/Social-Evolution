@@ -16,11 +16,15 @@ using System.Web.UI.WebControls;
 
 public partial class Account_Register : System.Web.UI.Page
 {
+
+    
+
     protected void CreateUser_Click(object sender, EventArgs e)
     {
         var manager = new UserManager();
-        var user = new ApplicationUser() {  UserName = UserName.Text };
-        IdentityResult result = manager.Create(user, Password.Text);
+        var user = new ApplicationUser() { UserName = eMail.Text };
+
+        IdentityResult result = manager.Create(user, fName.Text+lName.Text);
         if (result.Succeeded)
         {
             IdentityHelper.SignIn(manager, user, isPersistent: false);
@@ -44,13 +48,17 @@ public partial class Account_Register : System.Web.UI.Page
         cmd.Parameters.AddWithValue("lname", lName.Text);
         cmd.Parameters.AddWithValue("email", eMail.Text);
 
+        
+
         con.Open();
         int codereturn = (int)cmd.ExecuteScalar();
         if (codereturn == -1)
         {
 
-            lblmsg.Text = "Username already exist!";
-            lblmsg.ForeColor = System.Drawing.Color.Red;
+            // lblmsg.Text = "Username already exist!";
+
+            
+           // lblmsg.ForeColor = System.Drawing.Color.Red;
         }
         else
         {
@@ -77,13 +85,13 @@ public partial class Sending_Mail : System.Web.UI.Page
     /// <param name="e"></param>
     protected void Create_Message(object user, EventArgs e)
     {
-        string usrName = "";
+        string usrName = "username";
 
         string usrPass = "password";
 
         MailMessage msg = new MailMessage(sender, receive);
         msg.Priority = MailPriority.High;
-        msg.Subject = "SMRE Registration: " + 
+        msg.Subject = "SMRE Registration: " + usrName;
 
     }
     
@@ -100,7 +108,7 @@ public partial class Sending_Mail : System.Web.UI.Page
         nc.EnableSsl = true;    /// SSL is enabled for the client.
         nc.DeliveryMethod = SmtpDeliveryMethod.Network; ///Set the client delivery method to network delivery. 
         nc.UseDefaultCredentials = false;   /// Default user credentials are set to "false" for integrity and general security purposes.
-        nc.Credentials = new NetworkCredential(mail, mailPass);     /// Set the credentials for the mail client.
+        nc.Credentials = new NetworkCredential("utcbiomammalresearch@gmail.com", mailPass);     /// Set the credentials for the mail client.
         
 
     }
