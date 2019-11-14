@@ -15,9 +15,7 @@
             padding: 0 20px;
         }
 
-        .row2 {
 
-        }
         .column2 {
             float: left;
             width: 33.3%;
@@ -66,10 +64,10 @@
         }
 
         /*adds a little grey for a title*/
-        /*.title {
+        .title {
             color: grey;
             font:bold;
-        }*/
+        }
         /*this formatting messed with the menu bar at the top. still needs work*/
         .container button 
         {
@@ -94,7 +92,7 @@
     <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img src="Content/Images/team1.jpg" alt="">
+                <img src="Content/Images/degu.jpg" alt="">
                 <div class="carousel-caption">
                     <h3>the Degu</h3>
                     <p>Chile in 2014</p>
@@ -102,18 +100,18 @@
             </div>
 
         <div class="item">
-            <img src="Content/Images/team2.jpg" alt="">
+            <img src="Content/Images/twodegu.jpg" alt="">
             <div class="carousel-caption">
-                <h3>Dr Shradin</h3>
-                <p>Researching African Striped Mice</p>
+                <h3>two degus</h3>
+                <p>Scavaging for food</p>
             </div>
         </div>
 
         <div class="item">
-            <img src="Content/Images/team3.jpg" alt="">
+            <img src="Content/Images/moredegu.jpg" alt="">
             <div class="carousel-caption">
-                <h3>Team Members</h3>
-                <p>Discussing research material from resent trips</p>
+                <h3>Young Degu</h3>
+                <p>walking around the desert</p>
             </div>
         </div>
     </div>
@@ -133,9 +131,10 @@
 
     <%--<h2 class="text-left"><%: Title %></h2>--%> 
     <p>
-        Here we will put an overview of the project. You can mention the research you and your team have
-        completed over the years. After that present the goals and furture plans that you have
-        for the database.
+        We are a dedicated team of biologists whose area of study mainly includes intra- and inter-specific variation in mammals.
+        Our goal is to collect the most accurate data as possible about different factors that affect mammalian social organization.
+        The lead contributors to this team include Prof. Loren Hayes (University of Tennessee at Chattanooga) and Prof. 
+        Carsten Schradin (Director of Research at the Center National de la Recherche scientifique CNRS). Find out more about our team and study here.
     </p>
     <br>
 
@@ -156,15 +155,15 @@
 
           <div class="column">
             <div class="card">
-              <img src="Content/Images/member1.jpg"alt="Mike" style="width:100%">
+              <img src="Content/Images/loren.jpg"alt="Mike" style="width:100%">
               <div class="container">
                 <h2>Loren D. Hayes</h2>
                 <p class="title">Associate Professor</p>
                 <p>Department of</p> 
                 <p>Biology, Geology, & Enviromental Science</p>
                 <p>At the University of Tennessee at Chattanooga</p>
-                <p>Loren-Hayes@utc.edu</p>
-                <p><button class="button">Contact</button></p>
+                <a href="mailto:Loren-Hayes@utc.edu"><p>Contact</p></a>
+                <p><button class="button">Further Information</button></p>
               </div>
             </div>
           </div>
@@ -178,8 +177,8 @@
                 <p>Evolutionary Biology & Enviromental Studies</p>
                 <p>University of Zurich</p>
                 <p>Director of the Succulent Karoo Research Station</p>
-                <p>carsten.schradin@iphc.cnrs.fr</p>
-                <p><button class="button">Contact</button></p>
+                <a href="mailto:carsten.schradin@iphc.cnrs.fr"<p>Contact</p></a>
+                <p><button class="button">Further Information</button></p>
               </div>
             </div>
           </div>
@@ -192,30 +191,32 @@
     <br>
 
         <div class="row">
-        <div class="column2">
+        <div class="column">
             <div class="card">
-              <img src="Content/Images/member1.jpg" alt="Jane" style="width:100%">
+              <img src="Content/Images/tanis.jpg" alt="Jane" style="width:100%">
               <div class="container">
-                <h2>Carter Hill</h2>
-                <p class="title">Team Lead</p>
-                <p>guided developement of social-organization-data.org</p>
+                <h2>Craig Tanis</h2>
+                <p class="title">Assistant Professor</p>
+                  <p>of Computer Sciecne and Engineering</p>
+                  <p>at the University of Tennessee at Chattanooga</p>
+                  <p>Developing AI to detect and import</p>
+                  <p>data into the repository</p>
                 <a href="mailto:carterhill007@gmail.com"><p>Contact</p></a>
                 <p><button class="button">More Information</button></p>
               </div>
             </div>
           </div>
 
-          <div class="column2">
+          <div class="column">
             <div class="card">
-              <img src="Content/Images/member1.jpg"alt="Mike" style="width:100%">
+              <img src="Content/Images/hare.jpg"alt="Mike" style="width:100%">
               <div class="container">
-                <h2>Loren D. Hayes</h2>
-                <p class="title">Associate Professor</p>
-                <p>Department of</p> 
-                <p>Biology, Geology, & Enviromental Science</p>
-                <p>At the University of Tennessee at Chattanooga</p>
-                <p>Loren-Hayes@utc.edu</p>
-                <p><button class="button">Contact</button></p>
+                <h2>Russ Hare</h2>
+                <p class="title">Lecturer</p>
+                <p>of Computer Science and Engineering</p> 
+                <p>at the University of Tennessee at Chattanooga</p>
+                <p>Initated Developement of Project with</p>
+                  <p>UTC staff and Student body</p>
               </div>
             </div>
           </div>
@@ -230,38 +231,32 @@
     <div class="row">
         <div class="column">
             <div class="card">
-              <img src="Content/Images/member1.jpg" alt="Jane" style="width:100%">
               <div class="container">
                 <h2>Carter Hill</h2>
                 <p class="title">Team Lead</p>
                 <p>guided developement of social-organization-data.org</p>
-                <a href="mailto:carterhill007@gmail.com"><p>Contact</p></a>
               </div>
             </div>
           </div>
 
           <div class="column">
             <div class="card">
-              <img src="Content/Images/member1.jpg"alt="Mike" style="width:100%">
               <div class="container">
                 <h2>Bowen Wexler</h2>
                 <p class="title">Developement Lead</p>
-                <p>some text</p> 
-                <p>At the University of Tennessee at Chattanooga</p>
-                <p>Contact information</p>
+                <p>Designed database and website</p> 
+                <p>for social-organization-data.org</p>
               </div>
             </div>
           </div>
 
           <div class="column">
             <div class="card">
-              <img src="Content/Images/member1.jpg"alt="Mike" style="width:100%">
               <div class="container">
                 <h2>Harold Hanson</h2>
                 <p class="title">QA and Systems Analyst</p>
-                <p>some text</p> 
-                <p>At the University of Tennessee at Chattanooga</p>
-                <p>Contact information</p>
+                <p>Ensured the quality</p>
+                <p>and security of this dataset</p>
               </div>
             </div>
           </div>
@@ -269,13 +264,12 @@
 
           <div class="column">
             <div class="card">
-              <img src="Content/Images/member1.jpg"alt="Mike" style="width:100%">
               <div class="container">
                 <h2>Parshwa Patel</h2>
                 <p class="title">Application Architect</p>
-                <p>some text</p> 
-                <p>At the University of Tennessee at Chattanooga</p>
-                <p>Contact information</p>
+                <p>Designed visuals for</p> 
+                <p>the website and database repository</p>
+                <p>that aided with developement</p>
               </div>
             </div>
           </div>
