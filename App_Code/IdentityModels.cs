@@ -10,6 +10,19 @@ namespace BRDR_Capstone
     // You can add User data for the user by adding more properties to your User class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public string UserName { get; set; }
+        public string Roles { get; set; }
+        public string AccessFailedCount { get; set; }
+        public string SecurityStamp { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public string PasswordHash { get; set; }
+
+
+    }
+    public class AdminUser : ApplicationUser
+    {
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
