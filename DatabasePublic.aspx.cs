@@ -20,36 +20,54 @@ public partial class DatabasePublic : System.Web.UI.Page
 
     }
 
+    //This method selects columns to go into the Species and Population table and returns it as a json object
     [WebMethod(EnableSession = true)]
     public static object AnimalList(int jtStartIndex, int jtPageSize, string jtSorting)
     {
         string select = "";
+
+        //We also need to find the total number of rows, since we have pagination set up
         string totalcmd = "SELECT COUNT(*) FROM master";
         int animalCount = 0;
         try
         {
-            //string select = "SELECT * FROM Animal";
+            //Our SQL query
             select = "SELECT Id, genus_species, [order], common_name, subspecies, population, continent, gps_coordinates, reference FROM master ORDER BY " + jtSorting + " offset " + jtStartIndex + " rows fetch next " + jtPageSize + " rows only";
+            
+            //Method to get total rows
             animalCount = Total(totalcmd);
+
+            //List of Animal objects to be populated soon
             List<Animal> animals = new List<Animal>();
+
+            //Populate each Animal object in our list with data from the database
             animals = ExcuteObject<Animal>(select).ToList();
+
+            //Our return passes our row total and list as a json object back to javascript code that the JTable library uses to populate the table
             return new { Result = "OK", Records = animals, TotalRecordCount = animalCount };
         }
+        //This bit will give us an error message, say if the SQL query was breaking somewhere
         catch (Exception ex)
         {
             return new { Result = "ERROR", Message = ex.Message };
         }
     }
 
+    //This method adds a record to the database
     [WebMethod(EnableSession = true)]
     public static object CreateAnimal(Animal record)
     {
         try
         {
+            //We break up our insert query into columns that being modified and values to pass into said columns
             string insert, values, columns;
+
+            //startComma is used to track if a comma should be placed or not to properly construct our query string
             Boolean startComma = false;
             values = "";
             columns = "";
+
+            //This big old block of code is a very clunky way of checking to which values were passed on creation of the record and stringing them all together
             if (record.Genus_Species != "") { values += "'" + record.Genus_Species + "'"; columns += "genus_species "; startComma = true; }
 
             if (record.Common_Name != "" && startComma) { values += ", '" + record.Common_Name + "'"; columns += ", common_name"; }
@@ -74,7 +92,11 @@ public partial class DatabasePublic : System.Web.UI.Page
             else if (record.Reference != "" && startComma == false) { values += "'" + record.Reference + "'"; columns += "reference"; }
 
             insert = "Insert into master(" + columns + ") values(" + values + ")";
+
+            //We then pass this SQL command into another method that executes it
             InsertEdit(insert);
+
+            //This next part contructs the data that is passed back to JTable to update the view side of things
             DataTable animalTable = new DataTable();
 
             animalTable.Columns.Add("Id");
@@ -108,11 +130,13 @@ public partial class DatabasePublic : System.Web.UI.Page
         }
     }
 
+    //This method edits records in the database
     [WebMethod(EnableSession = true)]
     public static object EditAnimal(Animal record)
     {
         try
         {
+            //Here we build our SQL command text. If a value is empty, we must make it NULL in the database.
             string values = "";
             if (record.Genus_Species != "") { values += "genus_species = '" + record.Genus_Species + "', "; }
             else { values += "genus_species = NULL, "; }
@@ -142,11 +166,13 @@ public partial class DatabasePublic : System.Web.UI.Page
         }
     }
 
+    //This method deletes record in the database
     [WebMethod(EnableSession = true)]
     public static object DeleteAnimal(int ID)
     {
         try
         {
+            //SQL command text will always be the same
             string cmd = "DELETE FROM master WHERE Id = " + ID;
             Delete(cmd, ID);
             return new { Result = "OK" };
@@ -156,6 +182,8 @@ public partial class DatabasePublic : System.Web.UI.Page
             return new { Result = "ERROR", Message = ex.Message };
         }
     }
+
+    //After this, these methods are more or less repeated but with different names for different tables and columns
 
     [WebMethod(EnableSession = true)]
     public static object AnimalSocialList(int jtStartIndex, int jtPageSize, string jtSorting)
@@ -441,10 +469,13 @@ public partial class DatabasePublic : System.Web.UI.Page
         }
     }
 
+    //This is an intermediate method that essentially converts a data table object to our list format
     public static IEnumerable<T> ExcuteObject<T>(string commandText)
     {
         List<T> items = new List<T>();
-        var dataTable = Select(commandText); //this will use the DataTable Select function
+        //populates a data table using data from the data base
+        var dataTable = Select(commandText);
+        //For each row in the data table, convert this row to a Class of our choice and add said class to our list
         foreach (var row in dataTable.Rows)
         {
             T item = (T)Activator.CreateInstance(typeof(T), row);
@@ -453,6 +484,7 @@ public partial class DatabasePublic : System.Web.UI.Page
         return items;
     }
 
+    //Creates a data table using SqlDataAdapter
     public static DataTable Select(string commandText)
     {
         DataTable dataTable = new DataTable();
@@ -473,6 +505,7 @@ public partial class DatabasePublic : System.Web.UI.Page
         }
     }
 
+    //Returns the total number of rows in the data base
     public static int Total(string commandText)
     {
         string command = commandText;
@@ -489,6 +522,7 @@ public partial class DatabasePublic : System.Web.UI.Page
         return count;
     }
 
+    //Executes sql commands for inserting and editind rows
     public static void InsertEdit(string commandText)
     {
         using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
@@ -505,6 +539,7 @@ public partial class DatabasePublic : System.Web.UI.Page
         }
     }
 
+    //Executes sql commands for deleting rows
     public static void Delete(string commandText, int Id)
     {
         using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))

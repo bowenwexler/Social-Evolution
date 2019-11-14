@@ -2,8 +2,6 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-<%--    <link href="Content/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />--%>
-    <%--<link href="packages/jQuery.UI.Combined.1.12.1/Content/Content/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />--%>
     <link href="Content/themes/metroblue/jquery-ui.css" rel="stylesheet" type="text/css" />
     <!-- Include one of jTable styles. -->
     <link href="Scripts/jtable/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css" />
@@ -21,8 +19,56 @@
     <!-- ASP.NET Web Forms extension for jTable -->
     <script src="Scripts/jtable/extensions/jquery.jtable.aspnetpagemethods.js"></script>
 
-    <h2 class="text-center">Admin Database</h2>
+    <!-- This script runs the Excel Export method utlizing the CLosedXML Library -->
+    <script runat="server">
+        protected void ExcelExport_Click(object sender, EventArgs e)
+        {
+            using (System.Data.SqlClient.SqlConnection con = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            {
+                using (System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand("SELECT * FROM [master]"))
+                {
+                    using (System.Data.SqlClient.SqlDataAdapter sda = new System.Data.SqlClient.SqlDataAdapter())
+                    {
+                        cmd.Connection = con;
+                        sda.SelectCommand = cmd;
+                        using (System.Data.DataTable dt = new System.Data.DataTable())
+                        {
+                            sda.Fill(dt);
+                            using (ClosedXML.Excel.XLWorkbook wb = new ClosedXML.Excel.XLWorkbook())
+                            {
+                                wb.Worksheets.Add(dt, "Social Evolution");
+ 
+                                Response.Clear();
+                                Response.Buffer = true;
+                                Response.Charset = "";
+                                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                                String date = "" + DateTime.Now;
+                                Response.AddHeader("content-disposition", "attachment;filename=SocialEvolutionData" + date + ".xlsx");
+                                using (System.IO.MemoryStream MyMemoryStream = new System.IO.MemoryStream())
+                                {
+                                    wb.SaveAs(MyMemoryStream);
+                                    MyMemoryStream.WriteTo(Response.OutputStream);
+                                    Response.Flush();
+                                    Response.End();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <h2 class="text-center">Database</h2>
+
     <br />
+    <!-- The button for Excel Exportation -->
+    <div style="align-content: center; text-align: center">
+        <asp:Button  ID="export" OnClick="ExcelExport_Click" runat="server" Text="Export to Excel" CssClass="btn-default" Style="width: 100%" />
+    </div>
+    <br />
+
+    <!-- Our first JTable for Species and Population columns! Its HTML only involves one div, since most of it's functionality lies in the below Javascript -->
     <div id="SpeciesAndPopulationTable"></div>
     <script type="text/javascript">
  
@@ -36,11 +82,14 @@
                 sorting: true, //Enable sorting
                 defaultSorting: 'ID ASC', //Set default sorting
                 actions: {
+                    //These link to C# methods on the backend that pass back json objects to update the tables with ajax
                     listAction: 'DatabasePublic.aspx/AnimalList',
                     createAction: 'DatabasePublic.aspx/CreateAnimal',
                     updateAction: 'DatabasePublic.aspx/EditAnimal',
                     deleteAction: 'DatabasePublic.aspx/DeleteAnimal'
                 },
+                //Our defined columns in the table. Note that editing these values will require you to also edit the defined data class for the table
+                //Small changes like visual title and width don't require you to do that though
                 fields: {
                     ID: {
                         key: true,
@@ -86,6 +135,8 @@
             $('#SpeciesAndPopulationTable').jtable('load');
         });
     </script>
+
+    <!-- The next 4 tables are more or less the same but utilize different data classes and methods -->
 
     <br /><br /><br />
 
