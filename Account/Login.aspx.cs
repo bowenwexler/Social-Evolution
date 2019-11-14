@@ -1,11 +1,19 @@
 ﻿using Microsoft.AspNet.Identity;
-using Microsoft.Owin.Security;
 using System;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using BRDR_Capstone;
+using System.Web.Security;
+using System.Data.Sql;
+using System.Data.SqlClient;
+using System.Data;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
-public partial class Account_Login : Page
+public partial class Account_Login : System.Web.UI.Page
 {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,23 +26,35 @@ public partial class Account_Login : Page
             }
         }
 
-        protected void LogIn(object sender, EventArgs e)
-        {
-            if (IsValid)
-            {
-                // Validate the user password
-                var manager = new UserManager();
-                ApplicationUser user = manager.Find(UserName.Text, Password.Text);
-                if (user != null)
-                {
-                    IdentityHelper.SignIn(manager, user, RememberMe.Checked);
-                    IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
-                }
-                else
-                {
-                    FailureText.Text = "Invalid username or password.";
-                    ErrorMessage.Visible = true;
-                }
-            }
-        }
+    protected void LogIn(object sender, AuthenticateEventArgs e)
+    {
+
+        bool auth = false;
+
+        auth = authUser(UserName.Text, Password.Text);
+        e.Authenticated = auth;
+
+        FormsAuthentication.RedirectFromLoginPage(UserName.Text, true);
+           
+    }
+
+    protected bool authUser(String username,String password)
+    {
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\Desktop\Capstone-BRDR\App_Data\IVSO.mdf;Integrated Security=True");
+        SqlCommand cmd = new SqlCommand("sp_select", con);
+        cmd.CommandType = CommandType.StoredProcedure;
+
+        string encrypt = FormsAuthentication.HashPasswordForStoringInConfigFile(UserName.Text, "SHA1");
+
+        cmd.Parameters.AddWithValue("@username", UserName.Text);
+        cmd.Parameters.AddWithValue("@password", encrypt);
+
+        con.Open();
+
+        int codereturn = (int)cmd.ExecuteScalar();
+
+        return codereturn == 1;
+
+        
+    }
 }

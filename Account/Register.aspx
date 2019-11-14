@@ -11,29 +11,36 @@
         <hr />
         <asp:ValidationSummary runat="server" CssClass="text-danger" />
         <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="UserName" CssClass="col-md-2 control-label">User name</asp:Label>
-            <div class="col-md-10">
-                <asp:TextBox runat="server" ID="UserName" CssClass="form-control" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="UserName"
-                    CssClass="text-danger" ErrorMessage="The user name field is required." />
+            <h4>Account Registration Information and Contact</h4>
+            <div class="form-group">
+                <h5>User Name and Password Granting</h5>
+                <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="fName" CssClass="col-md-2 control-label">First Name</asp:Label>
+                        <div class="col-md-10">
+                            <asp:TextBox runat="server" ID="fName" CssClass="form-control" />
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="fName" CssClass="text-danger" ErrorMessage="" />
+                        </div>
+                    </div>
+                 <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="lName" CssClass="col-md-2 control-label">Last Name</asp:Label>
+                        <div class="col-md-10">
+                            <asp:TextBox runat="server" ID="lName" CssClass="form-control" />
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="lName" CssClass="text-danger" ErrorMessage="" />
+                        </div>
+                    </div>
+                 <div class="form-group">
+                        <asp:Label runat="server" AssociatedControlID="eMail" CssClass="col-md-2 control-label">E-Mail Address</asp:Label>
+                        <div class="col-md-10">
+                            <asp:TextBox runat="server" ID="eMail" CssClass="form-control" />
+                            <asp:RequiredFieldValidator runat="server" ControlToValidate="eMail" CssClass="text-danger" ErrorMessage="" />
+                        </div>
+                    </div>
+                <p></p>
             </div>
-        </div>
-        <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="Password" CssClass="col-md-2 control-label">Password</asp:Label>
-            <div class="col-md-10">
-                <asp:TextBox runat="server" ID="Password" TextMode="Password" CssClass="form-control" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="Password"
-                    CssClass="text-danger" ErrorMessage="The password field is required." />
-            </div>
-        </div>
-        <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="ConfirmPassword" CssClass="col-md-2 control-label">Confirm password</asp:Label>
-            <div class="col-md-10">
-                <asp:TextBox runat="server" ID="ConfirmPassword" TextMode="Password" CssClass="form-control" />
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="ConfirmPassword"
-                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The confirm password field is required." />
-                <asp:CompareValidator runat="server" ControlToCompare="Password" ControlToValidate="ConfirmPassword"
-                    CssClass="text-danger" Display="Dynamic" ErrorMessage="The password and confirmation password do not match." />
+            <div class="form-group">
+                <h5>Contact time</h5>
+                <p>To receive your official username and password for access or administration, the maximum wait time is 3 to 5 academic working days.
+                </p>
             </div>
         </div>
         <div class="form-group">
