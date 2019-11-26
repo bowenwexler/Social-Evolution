@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - Social Evolution Team</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -51,7 +51,7 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/About">About</a></li>
-                        <li><a runat="server" href="~/DatabasePublic">Database</a></li>
+                        <li><a runat="server" href="~/DatabaseAdmin">Database</a></li>
                         <li><a runat="server" href="~/Contribute">Contribute</a></li>
                     </ul>
                     <asp:LoginView runat="server" ViewStateMode="Disabled">
@@ -78,7 +78,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - BRDR Capstone Project</p>
+                <p>&copy; <%: DateTime.Now.Year %> - Social Evolution Project</p>
             </footer>
         </div>
     </form>

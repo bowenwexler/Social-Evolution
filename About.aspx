@@ -1,43 +1,45 @@
 ﻿<%@ Page Title="About" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="About.aspx.cs" Inherits="About" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <script runat="server">
+        //script not implemented yet
+        //protected void hayes(object sender, EventArgs e)
+        //{
+        //    Context.Response.Redirect("/");
+        //}
+    </script>
     <style>
+        /*formatting for the images inside the carousel*/
         .carousel-inner {
             margin:auto; 
             width:100%; 
             height:40% !important;
         }
-
+        /*columns are listed in rows of 3*/
         .column {
             float: left;
             width: 33.3%;
             margin-bottom: 16px;
             padding: 0 20px;
         }
-
-
-        .column2 {
+        /*column of developers*/
+        .columnD {
             float: left;
-            width: 33.3%;
+            width: 25%;
             margin-bottom: 16px;
             padding: 0 20px;
         }
-
-        .column3 {
-            float: left;
-            width: 33.3%;
-            margin-bottom: 16px;
-            padding: 0 20px;
-        }
+        /*the text in the left side of the carousel can be modified here*/
         .carousel-caption{
             text-align:left
             
         }
+        /*increasing the font size in the carousel*/
         .item h3{
             font-size:2em;  
         }        
 
-
+        /*changes the width of the pictures inside the carousel*/
         .item iframe {
             width:100%;
         }
@@ -53,7 +55,7 @@
         /* Add some shadows to create a card effect */
         .card {
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            word-wrap:normal;
+            word-wrap:normal !important;
         }
 
         /* Clear floats */
@@ -100,18 +102,18 @@
             </div>
 
         <div class="item">
-            <img src="Content/Images/twodegu.jpg" alt="">
+            <img src="Content/Images/chipmunk.jpg" alt="">
             <div class="carousel-caption">
-                <h3>two degus</h3>
+                <h3>Chipmunk</h3>
                 <p>Scavaging for food</p>
             </div>
         </div>
 
         <div class="item">
-            <img src="Content/Images/moredegu.jpg" alt="">
+            <img src="Content/Images/zebra.jpg" alt="">
             <div class="carousel-caption">
-                <h3>Young Degu</h3>
-                <p>walking around the desert</p>
+                <h3>Zebra</h3>
+                <p>grazing around the desert</p>
             </div>
         </div>
     </div>
@@ -140,22 +142,9 @@
 
     <h2>Meet the Team</h2>
     <div class="row">
-        <div class="column">
-            <div class="card">
-              <img src="Content/Images/member1.jpg" alt="Jane" style="width:100%">
-              <div class="container">
-                <h2>Mock Up</h2>
-                <p class="title">Title / Titles</p>
-                <p>relevant information you would like to be shown.</p>
-                <a href="mailto:carterhill007@gmail.com"><p>Email address</p></a>
-                <p><button class="button">Other websites</button></p>
-              </div>
-            </div>
-          </div>
-
           <div class="column">
             <div class="card">
-              <img src="Content/Images/loren.jpg"alt="Mike" style="width:100%">
+              <img src="Content/Images/loren.jpg"alt="loren" style="width:100%">
               <div class="container">
                 <h2>Loren D. Hayes</h2>
                 <p class="title">Associate Professor</p>
@@ -163,6 +152,7 @@
                 <p>Biology, Geology, & Enviromental Science</p>
                 <p>At the University of Tennessee at Chattanooga</p>
                 <a href="mailto:Loren-Hayes@utc.edu"><p>Contact</p></a>
+
                 <p><button class="button">Further Information</button></p>
               </div>
             </div>
@@ -178,7 +168,8 @@
                 <p>University of Zurich</p>
                 <p>Director of the Succulent Karoo Research Station</p>
                 <a href="mailto:carsten.schradin@iphc.cnrs.fr"<p>Contact</p></a>
-                <p><button class="button">Further Information</button></p>
+                <%-- button link not implemented in script yet --%>
+                <p><button class="button">Further Information </button></p>
               </div>
             </div>
           </div>
@@ -201,8 +192,6 @@
                   <p>at the University of Tennessee at Chattanooga</p>
                   <p>Developing AI to detect and import</p>
                   <p>data into the repository</p>
-                <a href="mailto:carterhill007@gmail.com"><p>Contact</p></a>
-                <p><button class="button">More Information</button></p>
               </div>
             </div>
           </div>
@@ -224,22 +213,24 @@
 
     <h2>Developers</h2>
     <p>
-        here we'll say something about ourselves 
+        Students at UTC who provided their time and effort into making this project a reality
     </p>
     <br>
 
+<div class="developers">
     <div class="row">
-        <div class="column">
+        <div class="columnD">
             <div class="card">
               <div class="container">
                 <h2>Carter Hill</h2>
                 <p class="title">Team Lead</p>
-                <p>guided developement of social-organization-data.org</p>
+                <p>guided developement of</p>
+                <p>social-organization-data.org</p>
               </div>
             </div>
           </div>
 
-          <div class="column">
+          <div class="columnD">
             <div class="card">
               <div class="container">
                 <h2>Bowen Wexler</h2>
@@ -250,7 +241,7 @@
             </div>
           </div>
 
-          <div class="column">
+          <div class="columnD">
             <div class="card">
               <div class="container">
                 <h2>Harold Hanson</h2>
@@ -260,9 +251,7 @@
               </div>
             </div>
           </div>
-        </div>
-
-          <div class="column">
+        <div class="columnD">
             <div class="card">
               <div class="container">
                 <h2>Parshwa Patel</h2>
@@ -272,5 +261,8 @@
                 <p>that aided with developement</p>
               </div>
             </div>
-          </div>
+        </div>
+        </div>
+        
+</div>
 </asp:Content>

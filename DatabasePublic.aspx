@@ -1,6 +1,20 @@
-﻿<%@ Page Title="Public Database" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="DatabasePublic.aspx.cs" CodeBehind="~/DatabasePublic.aspx.cs" Inherits="DatabasePublic" %>
+<%@ Page Title="Public Database" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="DatabasePublic.aspx.cs" CodeBehind="~/DatabasePublic.aspx.cs" Inherits="DatabasePublic" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <style>
+        input[type=submit] {
+          background-color: #3474eb !important;
+          color: white !important;
+          padding: 12px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+          background-color: #4334eb !important;
+        }
+    </style>
 
     <link href="Content/themes/metroblue/jquery-ui.css" rel="stylesheet" type="text/css" />
     <!-- Include one of jTable styles. -->
@@ -59,7 +73,7 @@
         }
     </script>
 
-    <h2 class="text-center">Database</h2>
+    <h2 class="text-center">Database Public</h2>
 
     <br />
     <!-- The button for Excel Exportation -->
@@ -83,10 +97,7 @@
                 defaultSorting: 'ID ASC', //Set default sorting
                 actions: {
                     //These link to C# methods on the backend that pass back json objects to update the tables with ajax
-                    listAction: 'DatabasePublic.aspx/AnimalList',
-                    createAction: 'DatabasePublic.aspx/CreateAnimal',
-                    updateAction: 'DatabasePublic.aspx/EditAnimal',
-                    deleteAction: 'DatabasePublic.aspx/DeleteAnimal'
+                    listAction: 'DatabasePublic.aspx/AnimalList'
                 },
                 //Our defined columns in the table. Note that editing these values will require you to also edit the defined data class for the table
                 //Small changes like visual title and width don't require you to do that though
@@ -153,9 +164,7 @@
                 sorting: true, //Enable sorting
                 defaultSorting: 'ID ASC', //Set default sorting
                 actions: {
-                    listAction: 'DatabasePublic.aspx/AnimalSocialList',
-                    updateAction: 'DatabasePublic.aspx/EditAnimalSocial',
-                    deleteAction: 'DatabasePublic.aspx/DeleteAnimalSocial'
+                    listAction: 'DatabasePublic.aspx/AnimalSocialList'
                 },
                 fields: {
                     ID: {
@@ -242,9 +251,7 @@
                 sorting: true, //Enable sorting
                 defaultSorting: 'ID ASC', //Set default sorting
                 actions: {
-                    listAction: 'DatabasePublic.aspx/AnimalListDemographics',
-                    updateAction: 'DatabasePublic.aspx/EditAnimalDemographics',
-                    deleteAction: 'DatabasePublic.aspx/DeleteAnimalDemographics'
+                    listAction: 'DatabasePublic.aspx/AnimalListDemographics'
                 },
                 fields: {
                     ID: {
@@ -299,9 +306,7 @@
                 sorting: true, //Enable sorting
                 defaultSorting: 'ID ASC', //Set default sorting
                 actions: {
-                    listAction: 'DatabasePublic.aspx/AnimalListEnvironment',
-                    updateAction: 'DatabasePublic.aspx/EditAnimalEnvironment',
-                    deleteAction: 'DatabasePublic.aspx/DeleteAnimalEnvironment'
+                    listAction: 'DatabasePublic.aspx/AnimalListEnvironment'
                 },
                 fields: {
                     ID: {
@@ -372,9 +377,7 @@
                 sorting: true, //Enable sorting
                 defaultSorting: 'ID ASC', //Set default sorting
                 actions: {
-                    listAction: 'DatabasePublic.aspx/AnimalListLife',
-                    updateAction: 'DatabasePublic.aspx/EditAnimalLife',
-                    deleteAction: 'DatabasePublic.aspx/DeleteAnimalLife'
+                    listAction: 'DatabasePublic.aspx/AnimalListLife'
                 },
                 fields: {
                     ID: {
